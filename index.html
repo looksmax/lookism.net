@@ -2191,12 +2191,18 @@ var suuk = [];
 var sum = 0;
 var loadedSum = 0;
 var tarp = document.getElementById('cover');
-/*
-window.addEventListener('load', () => {
+var blo = document.getElementById('block');
+
+function comenzar() {
+  blo.style.display = 'none';
   tarp.style.height = 0;
   tarp.style.display = 'none';
-});
-*/
+}
+
+setTimeout(comenzar,5000);
+
+window.addEventListener('load', comenzar);
+
 function seekTo(ele,codetime) {
   if (suuk.includes(ele)) {
     return;
@@ -2212,12 +2218,12 @@ for (let i = 0, element; element = medias[i]; ++i) {
       seekTo(event.currentTarget,SEEK);
     }, false);
   }
-  for (let nameEvent of ['canplay','canplaythrough','load']) {
+  for (let nameEvent of ['loadeddata','canplay','canplaythrough','load']) {
     element.addEventListener(nameEvent, function(event) {
       ++loadedSum;
       tarp.style.height = (sum - loadedSum) / sum * 100 + 'vh';
       if (loadedSum >= Math.ceil(sum / 2)) {
-        document.getElementById('block').style.display = 'none';
+        blo.style.display = 'none';
       }
     });
   }
